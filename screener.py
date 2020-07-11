@@ -16,7 +16,8 @@ final = []
 index = []
 n = -1
 
-exportList = pd.DataFrame(columns=['Stock", "50 Day MA", "150 Day Ma", "200 Day MA", "52 Week Low", "52 week High"])
+exportList = pd.DataFrame(columns=['Stock', "50 Day MA", "150 Day Ma", "200 Day MA", "52 Week Low", "52 week High"])
+
 
 for stock in stocklist:
     n += 1
@@ -29,7 +30,7 @@ for stock in stocklist:
     
     df = pdr.get_data_yahoo(stock, start=start_date, end=end_date)
     
-try:
+    try:
         sma = [50, 150, 200]
         for x in sma:
             df["SMA_"+str(x)] = round(df.iloc[:,4].rolling(window=x).mean(), 2)
@@ -74,7 +75,7 @@ try:
             condition_5 = True
         else:
             condition_5 = False
-        # Condition 6: Current Price is at least 30% above 52 week low 
+        # Condition 6: Current Price is at least 30% above 52 week low (Many of the best are up 100-300% before coming out of consolidation)
         if(currentClose >= (1.3*low_of_52week)):
             condition_6 = True
         else:
