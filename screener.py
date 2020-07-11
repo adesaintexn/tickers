@@ -6,29 +6,37 @@ import pandas as pd
 import requests
 import datetime
 import time
-import os
 
 yf.pdr_override()
 
 stocklist = si.tickers_sp500()
+index_name = '^GSPC' # S&P 500
 
 final = []
 index = []
 n = -1
 
-exportList = pd.DataFrame(columns=['Stock', "50 Day MA", "150 Day Ma", "200 Day MA", "52 Week Low", "52 week High"])
+exportList = pd.DataFrame(columns=['Stock', "RS_Rating", "50 Day MA", "150 Day Ma", "200 Day MA", "52 Week Low", "52 week High"])
 
-
-for stock in stocklist:
+for stock in stocklist[0:5]:
     n += 1
     time.sleep(1)
     
     print ("\npulling {} with index {}".format(stock, n))
-    # rsi value
+
+    # RS_Rating 
     start_date = datetime.datetime.now() - datetime.timedelta(days=365)
     end_date = datetime.date.today()
     
     df = pdr.get_data_yahoo(stock, start=start_date, end=end_date)
+    df['Percent Change'] = df['Adj Close'].pct_change()    
+    stock_return = df['Percent Change'].sum() * 100
+    
+    index_df = pdr.get_data_yahoo(index_name, start=start_date, end=end_date)
+    index_df['Percent Change'] = index_df['Adj Close'].pct_change()
+    index_return = index_df['Percent Change'].sum() * 100
+    
+    RS_Rating = round((stock_return / index_return) * 10, 2)
     
     try:
         sma = [50, 150, 200]
@@ -85,8 +93,14 @@ for stock in stocklist:
             condition_7 = True
         else:
             condition_7 = False
+            
+        # Condition 8: IBD RS_Rating greater than 70
+        if(RS_Rating >= 70):
+            condition_8 = True
+        else:
+            condition_8 = False
 
-        if(condition_1 and condition_2 and condition_3 and condition_4 and condition_5 and condition_6 and condition_7):
+        if(condition_1 and condition_2 and condition_3 and condition_4 and condition_5 and condition_6 and condition_7 and condition_8):
             final.append(stock)
             index.append(n)
             
@@ -94,7 +108,7 @@ for stock in stocklist:
             
             dataframe.to_csv('stocks.csv')
             
-            exportList = exportList.append({'Stock': stock, "50 Day MA": moving_average_50, "150 Day Ma": moving_average_150, "200 Day MA": moving_average_200, "52 Week Low": low_of_52week, "52 week High": high_of_52week}, ignore_index=True)
+            exportList = exportList.append({'Stock': stock, "RS_Rating": RS_Rating ,"50 Day MA": moving_average_50, "150 Day Ma": moving_average_150, "200 Day MA": moving_average_200, "52 Week Low": low_of_52week, "52 week High": high_of_52week}, ignore_index=True)
             print (stock + " made the requirements")
     except Exception as e:
         print (e)
