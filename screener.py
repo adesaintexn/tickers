@@ -10,13 +10,13 @@ import os
 
 yf.pdr_override()
 
-stocklist = si.tickers_nasdaq()
+stocklist = si.tickers_sp500()
 
 final = []
 index = []
 n = -1
 
-exportList = pd.DataFrame(columns=['Stock', "RS_Rating", "50 Day MA", "150 Day Ma", "200 Day MA", "52 Week Low", "52 week High"])
+exportList = pd.DataFrame(columns=['Stock", "50 Day MA", "150 Day Ma", "200 Day MA", "52 Week Low", "52 week High"])
 
 for stock in stocklist:
     n += 1
@@ -28,27 +28,6 @@ for stock in stocklist:
     end_date = datetime.date.today()
     
     df = pdr.get_data_yahoo(stock, start=start_date, end=end_date)
-    df = df.reset_index()
-    df['Date'] = pd.to_datetime(df.Date)
-    data = df.sort_values(by="Date", ascending=True).set_index("Date").last("59D")
-    df = df.set_index('Date')
-    rsi_period = 14
-    chg = data['Close'].diff(1)
-    gain = chg.mask(chg < 0, 0)
-    data['gain'] = gain
-    loss = chg.mask(chg > 0, 0)
-    data['loss'] = loss
-    avg_gain = gain.ewm(com=rsi_period - 1, min_periods=rsi_period).mean()
-    avg_loss = loss.ewm(com=rsi_period - 1, min_periods=rsi_period).mean()
-    data['avg_gain'] = avg_gain
-    data['avg_loss'] = avg_loss
-    rs = abs(avg_gain/avg_loss)
-    rsi = 100-(100/(1+rs))
-    rsi = rsi.reset_index()
-    rsi = rsi.drop(columns=['Date'])
-    rsi.columns = ['Value']
-    rsi_list = rsi.Value.to_list()
-    RS_Rating = rsi['Value'].mean()
     
 try:
         sma = [50, 150, 200]
@@ -95,7 +74,7 @@ try:
             condition_5 = True
         else:
             condition_5 = False
-        # Condition 6: Current Price is at least 30% above 52 week low (Many of the best are up 100-300% before coming out of consolidation)
+        # Condition 6: Current Price is at least 30% above 52 week low 
         if(currentClose >= (1.3*low_of_52week)):
             condition_6 = True
         else:
@@ -105,13 +84,8 @@ try:
             condition_7 = True
         else:
             condition_7 = False
-        # Condition 8: IBD RS rating >70 and the higher the better
-        if(RS_Rating > 70):
-            condition_8 = True
-        else:
-            condition_8 = False
 
-        if(condition_1 and condition_2 and condition_3 and condition_4 and condition_5 and condition_6 and condition_7 and condition_8):
+        if(condition_1 and condition_2 and condition_3 and condition_4 and condition_5 and condition_6 and condition_7):
             final.append(stock)
             index.append(n)
             
@@ -119,7 +93,7 @@ try:
             
             dataframe.to_csv('stocks.csv')
             
-            exportList = exportList.append({'Stock': stock, "RS_Rating": RS_Rating, "50 Day MA": moving_average_50, "150 Day Ma": moving_average_150, "200 Day MA": moving_average_200, "52 Week Low": low_of_52week, "52 week High": high_of_52week}, ignore_index=True)
+            exportList = exportList.append({'Stock': stock, "50 Day MA": moving_average_50, "150 Day Ma": moving_average_150, "200 Day MA": moving_average_200, "52 Week Low": low_of_52week, "52 week High": high_of_52week}, ignore_index=True)
             print (stock + " made the requirements")
     except Exception as e:
         print (e)
