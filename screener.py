@@ -10,6 +10,7 @@ yf.pdr_override()
 
 # Variables
 tickers = si.tickers_sp500()
+tickers = [item.replace(".", "-") for item in tickers] # Yahoo Finance uses dashes instead of dots
 index_name = '^GSPC' # S&P 500
 start_date = datetime.datetime.now() - datetime.timedelta(days=365)
 end_date = datetime.date.today()
@@ -19,7 +20,7 @@ returns_multiples = []
 # Index Returns
 index_df = pdr.get_data_yahoo(index_name, start_date, end_date)
 index_df['Percent Change'] = index_df['Adj Close'].pct_change()
-index_return = index_df['Percent Change'].sum() * 100
+index_return = (index_df['Percent Change'] + 1).cumprod()[-1]
 
 # Find top 30% performing stocks (relative to the S&P 500)
 for ticker in tickers:
@@ -28,8 +29,8 @@ for ticker in tickers:
     df.to_csv(f'{ticker}.csv')
 
     # Calculating returns relative to the market (returns multiple)
-    df['Percent Change'] = df['Adj Close'].pct_change()    
-    stock_return = df['Percent Change'].sum() * 100
+    df['Percent Change'] = df['Adj Close'].pct_change()
+    stock_return = (df['Percent Change'] + 1).cumprod()[-1]
     
     returns_multiple = round((stock_return / index_return), 2)
     returns_multiples.extend([returns_multiple])
