@@ -57,8 +57,8 @@ for stock in rs_stocks:
         moving_average_50 = df["SMA_50"][-1]
         moving_average_150 = df["SMA_150"][-1]
         moving_average_200 = df["SMA_200"][-1]
-        low_of_52week = round(min(df["Adj Close"][-260:]), 2)
-        high_of_52week = round(max(df["Adj Close"][-260:]), 2)
+        low_of_52week = round(min(df["Low"][-260:]), 2)
+        high_of_52week = round(max(df["High"][-260:]), 2)
         RS_Rating = round(rs_df[rs_df['Ticker']==stock].RS_Rating.tolist()[0])
         
         try:
