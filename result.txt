@@ -1,1 +1,1 @@
-RCL , LRN , SSD , AOMR , KKR , UNB , VVI , CMG , WDFC , SRDX , APO , ITUB , CE , BAH , FCO , RSG , BCML , GEN , 
+LRN , RCL , SSD , AOMR , KKR , UNB , VVI , CMG , APO , SRDX , WDFC , ITUB , CE , BAH , MAS , FCO , BCML , CG , RSG , GEN , 
