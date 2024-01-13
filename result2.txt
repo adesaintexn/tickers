@@ -1,1 +1,1 @@
-PGTI , DHI , VST , GMS , GLP , AWI , GRBK , OC , SKX , TPG , AZTA , RYAAY , EXP , CG , PH , NWS , MAR , FERG , FONR , 
+PGTI , DHI , VST , GLP , GMS , AWI , GRBK , OC , SKX , TPG , AZTA , RYAAY , EXP , CG , NWS , MAR , PH , FERG , FONR , 
