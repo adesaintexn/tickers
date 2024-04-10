@@ -1,1 +1,1 @@
-WSM , WIX , WFC , PNR , SPH , STNG , CEM , VERY , 
+ADSE , WSM , NU , ACR , CR , WFC , GRC , TGT , ABNB , MTX , 
