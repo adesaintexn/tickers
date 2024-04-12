@@ -1,1 +1,1 @@
-ADSE , WSM , NU , ACR , CR , WFC , GRC , TGT , ABNB , MTX , 
+ADSE , CR , TPG , WES , CLH , PRMW , BRKR , 
