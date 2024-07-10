@@ -1,1 +1,1 @@
-PIPR , PINS , UTHR , GHSI , MMLP , MCBS , DLR , WMB , 
+COKE , MMLP , REGN , MCBS , DLR , FULT , 
