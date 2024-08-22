@@ -1,0 +1,1 @@
+['MIRA', 'SLNH', 'PLNT', 'ABBV', 'PBHC', 'FISI', 'FUNC', 'ZJYL', 'AUR', 'OPBK', 'SASR', 'ARGX', 'EVGO', 'RXO', 'ALIM', 'REPL', 'ASNS', 'HIFS', 'MIRM', 'BALY', 'CASI', 'INFY', 'MOFG', 'SHCR', 'EFSC', 'BVFL', 'SRL', 'CBU', 'AKTX', 'SRPT', 'TBBK', 'FBNC', 'INNV', 'MWG', 'EXEL', 'DECA', 'SMBC', 'ORGS', 'GFL']
