@@ -1,1 +1,1 @@
-LPX , FUNC , K , VEON , PDLB , RCM , 
+ATMU , K , VEON , PYPL , SXI , RCM , 
