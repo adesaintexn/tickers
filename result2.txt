@@ -1,1 +1,1 @@
-ATMU , K , VEON , PYPL , SXI , RCM , 
+CSWI , FUNC , ATMU , BN , ITIC , ED , HLMN , 
